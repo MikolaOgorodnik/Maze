@@ -10,7 +10,7 @@ import java.util.*;
  * @author Nikolai Ogorodnik
  * @version 1.5
  */
-public class Graph<T extends Comparable<T>> implements Serializable {
+public class Graph<T extends Comparable<T> & Serializable> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

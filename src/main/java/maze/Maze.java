@@ -5,7 +5,6 @@ import maze.graph.Graph;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.*;
 
 public class Maze implements Serializable {
@@ -28,13 +27,13 @@ public class Maze implements Serializable {
 
     private Random rnd;
 
-    public Maze(int size) throws IllegalArgumentException, NoSuchAlgorithmException {
+    public Maze(int size) throws IllegalArgumentException {
         if (size < 3) throw new IllegalArgumentException("Too small maze size");
         this.height = size;
         this.width = size;
         this.grid = new CellType[size][size];
         this.mazeGraph = new Graph<>();
-        this.rnd = SecureRandom.getInstanceStrong();
+        this.rnd = new Random();
     }
 
     public Maze(int height, int width) throws IllegalArgumentException {
@@ -43,6 +42,7 @@ public class Maze implements Serializable {
         this.width = width;
         this.grid = new CellType[height][width];
         this.mazeGraph = new Graph<>();
+        this.rnd = new Random();
     }
 
     public boolean isMazeExists() {

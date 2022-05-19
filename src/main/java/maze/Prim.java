@@ -2,10 +2,11 @@ package maze;
 
 import maze.graph.Graph;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Prim<T extends Comparable<T>> {
+public class Prim<T extends Comparable<T> & Serializable> {
     private final Graph<T> graph;
 
     public Prim(Graph<T> graph) {

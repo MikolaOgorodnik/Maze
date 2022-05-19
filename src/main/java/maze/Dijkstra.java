@@ -3,9 +3,10 @@ package maze;
 import maze.graph.Edge;
 import maze.graph.Graph;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Dijkstra<T extends Comparable<T>> extends ShortestPathAlgorithm<T> {
+public class Dijkstra<T extends Comparable<T> & Serializable> extends ShortestPathAlgorithm<T> {
 
     @Override
     public List<T> getShortestPath(Graph<T> graph, T source, T destination) {

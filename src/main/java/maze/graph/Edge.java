@@ -3,7 +3,7 @@ package maze.graph;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class Edge<T extends Comparable<T>>
+public class Edge<T extends Comparable<T> & Serializable>
         implements Comparable<Edge<T>>, Serializable {
 
     @Serial

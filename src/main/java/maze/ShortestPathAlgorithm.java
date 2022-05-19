@@ -2,10 +2,11 @@ package maze;
 
 import maze.graph.Graph;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ShortestPathAlgorithm<T extends Comparable<T>> {
+public abstract class ShortestPathAlgorithm<T extends Comparable<T> & Serializable> {
     private ArrayList<T> shortestPath = new ArrayList<>();
 
     protected ArrayList<T> processPath(
