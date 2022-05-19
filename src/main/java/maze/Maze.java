@@ -4,6 +4,8 @@ import maze.graph.Edge;
 import maze.graph.Graph;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.*;
 
 public class Maze implements Serializable {
@@ -20,16 +22,19 @@ public class Maze implements Serializable {
 
     private final CellType[][] grid;
 
-    private Graph<Cell> maze_graph;
+    private Graph<Cell> mazeGraph;
 
     private List<Cell> solution;
 
-    public Maze(int size) throws IllegalArgumentException {
+    private Random rnd;
+
+    public Maze(int size) throws IllegalArgumentException, NoSuchAlgorithmException {
         if (size < 3) throw new IllegalArgumentException("Too small maze size");
         this.height = size;
         this.width = size;
         this.grid = new CellType[size][size];
-        this.maze_graph = new Graph<>();
+        this.mazeGraph = new Graph<>();
+        this.rnd = SecureRandom.getInstanceStrong();
     }
 
     public Maze(int height, int width) throws IllegalArgumentException {
@@ -37,21 +42,21 @@ public class Maze implements Serializable {
         this.height = height;
         this.width = width;
         this.grid = new CellType[height][width];
-        this.maze_graph = new Graph<>();
+        this.mazeGraph = new Graph<>();
     }
 
     public boolean isMazeExists() {
         return height > 2 && width > 2;
     }
 
-    public Graph<Cell> getMaze_graph() {
-        return maze_graph;
+    public Graph<Cell> getMazeGraph() {
+        return mazeGraph;
     }
 
     public Optional<Cell> findStartingPoint() {
         Cell found = null;
 
-        for (Cell cell : maze_graph.getVerticesSet()) {
+        for (Cell cell : mazeGraph.getVerticesSet()) {
             if (cell.getCellType().equals(CellType.START)) {
                 found = cell;
             }
@@ -65,7 +70,7 @@ public class Maze implements Serializable {
             Arrays.fill(cellRow, CellType.WALL);
         }
 
-        for (Cell cell : maze_graph.getVerticesSet()) {
+        for (Cell cell : mazeGraph.getVerticesSet()) {
             grid[cell.getX()][cell.getY()] = cell.getCellType();
         }
     }
@@ -80,12 +85,12 @@ public class Maze implements Serializable {
                         || j == width - 1
                         || i % 2 == 0
                         || j % 2 == 0)) {
-                    maze_graph.addVertex(new Cell(i, j, CellType.EMPTY));
+                    mazeGraph.addVertex(new Cell(i, j, CellType.EMPTY));
                 }
             }
         }
 
-        var vertexes = maze_graph.getEntireGraph();
+        var vertexes = mazeGraph.getEntireGraph();
 
         Cell[] neighbourCells = new Cell[4];
 
@@ -99,18 +104,18 @@ public class Maze implements Serializable {
 
             for (Cell neighbour : neighbourCells) {
                 if (vertexes.containsKey(neighbour)) {
-                    maze_graph.addUndirectedWeightedEdge(current, neighbour, (int) (Math.random() * neighbourFactor));
+                    mazeGraph.addUndirectedWeightedEdge(current, neighbour, (int) (Math.abs(rnd.nextGaussian()) * neighbourFactor));
                 }
             }
         }
 
         Cell startCell = new Cell(1, 0, CellType.START);
         startingPoint = startCell;
-        maze_graph.addVertex(startCell);
-        maze_graph.addUndirectedWeightedEdge(
+        mazeGraph.addVertex(startCell);
+        mazeGraph.addUndirectedWeightedEdge(
                 startCell,
                 new Cell(1, 1, CellType.EMPTY),
-                (int) (Math.random() * neighbourFactor)
+                (int) (Math.abs(rnd.nextGaussian()) * neighbourFactor)
         );
 
         boolean exitFound = false;
@@ -122,18 +127,18 @@ public class Maze implements Serializable {
             while (j > 0 && !exitFound) {
                 Cell currentCell = new Cell(i, j, CellType.EMPTY);
 
-                exitFound = maze_graph.getVerticesSet().contains(currentCell);
+                exitFound = mazeGraph.getVerticesSet().contains(currentCell);
 
                 if (exitFound) {
 
                     Cell exitCell = new Cell(i, width - 1, CellType.EXIT);
                     finishPoint = exitCell;
 
-                    maze_graph.addVertex(exitCell);
-                    maze_graph.addUndirectedWeightedEdge(
+                    mazeGraph.addVertex(exitCell);
+                    mazeGraph.addUndirectedWeightedEdge(
                             currentCell,
                             exitCell,
-                            (int) (Math.random() * neighbourFactor)
+                            (int) (Math.abs(rnd.nextGaussian()) * neighbourFactor)
                     );
                 }
                 j--;
@@ -141,13 +146,13 @@ public class Maze implements Serializable {
             i--;
         }
 
-        var prim = new Prim<>(maze_graph);
+        var prim = new Prim<>(mazeGraph);
 
-        maze_graph = prim.run(startCell);
+        mazeGraph = prim.run(startCell);
 
         Set<Edge<Cell>> edgeSet = new HashSet<>();
 
-        for (Set<Edge<Cell>> edges : maze_graph.getEntireGraph().values()) {
+        for (Set<Edge<Cell>> edges : mazeGraph.getEntireGraph().values()) {
             edgeSet.addAll(edges);
         }
 
@@ -173,10 +178,10 @@ public class Maze implements Serializable {
             }
 
             if (newCell.isPresent()) {
-                maze_graph.deleteUndirectedEdge(edge.getVertexFrom(), edge.getVertexTo());
-                maze_graph.addVertex(newCell.get());
-                maze_graph.addUndirectedWeightedEdge(edge.getVertexFrom(), newCell.get(), 1);
-                maze_graph.addUndirectedWeightedEdge(newCell.get(), edge.getVertexTo(), 1);
+                mazeGraph.deleteUndirectedEdge(edge.getVertexFrom(), edge.getVertexTo());
+                mazeGraph.addVertex(newCell.get());
+                mazeGraph.addUndirectedWeightedEdge(edge.getVertexFrom(), newCell.get(), 1);
+                mazeGraph.addUndirectedWeightedEdge(newCell.get(), edge.getVertexTo(), 1);
             }
         }
 
@@ -185,7 +190,7 @@ public class Maze implements Serializable {
     private void solveMaze() {
         Dijkstra<Cell> dijkstra = new Dijkstra<>();
 
-        solution = dijkstra.getShortestPath(maze_graph, startingPoint, finishPoint);
+        solution = dijkstra.getShortestPath(mazeGraph, startingPoint, finishPoint);
     }
 
     public String showSolution() {
@@ -194,7 +199,7 @@ public class Maze implements Serializable {
             Arrays.fill(cellRow, CellType.WALL);
         }
 
-        for (Cell cell : maze_graph.getVerticesSet()) {
+        for (Cell cell : mazeGraph.getVerticesSet()) {
             grid[cell.getX()][cell.getY()] = solution.contains(cell) ? CellType.PATH : cell.getCellType();
         }
 
