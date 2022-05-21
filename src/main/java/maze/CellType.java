@@ -2,6 +2,8 @@ package maze;
 
 /**
  * Type of cell.
+ *
+ * @author Nikolai Ogorodnik
  */
 public enum CellType {
 

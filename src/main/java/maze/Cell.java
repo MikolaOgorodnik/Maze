@@ -12,6 +12,7 @@ import java.util.Objects;
  *   <b>Y</b> coordinate of a cell.
  *   <b>Cell Type</b> see: {@link CellType CellType}.
  * </pre>
+ * @author Nikolai Ogorodnik
  */
 public class Cell implements Comparable<Cell>, Serializable {
     @Serial
