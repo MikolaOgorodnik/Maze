@@ -3,13 +3,16 @@ package maze;
 import maze.graph.Edge;
 import maze.graph.Graph;
 
+import java.io.Serial;
 import java.io.Serializable;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class Maze implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
+
+    private static final int NEIGHBOUR_FACTOR = 9;
 
     private final int height;
 
@@ -25,16 +28,7 @@ public class Maze implements Serializable {
 
     private List<Cell> solution;
 
-    private Random rnd;
-
-    public Maze(int size) throws IllegalArgumentException {
-        if (size < 3) throw new IllegalArgumentException("Too small maze size");
-        this.height = size;
-        this.width = size;
-        this.grid = new CellType[size][size];
-        this.mazeGraph = new Graph<>();
-        this.rnd = new Random();
-    }
+    private final Random rnd;
 
     public Maze(int height, int width) throws IllegalArgumentException {
         if (height < 3 || width < 3) throw new IllegalArgumentException("Too small maze size");
@@ -47,10 +41,6 @@ public class Maze implements Serializable {
 
     public boolean isMazeExists() {
         return height > 2 && width > 2;
-    }
-
-    public Graph<Cell> getMazeGraph() {
-        return mazeGraph;
     }
 
     public Optional<Cell> findStartingPoint() {
@@ -75,9 +65,7 @@ public class Maze implements Serializable {
         }
     }
 
-    public void fillGrid() {
-        final int neighbourFactor = 9;
-
+    private void fillMazeByEmptyCells() {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
 
@@ -104,18 +92,19 @@ public class Maze implements Serializable {
 
             for (Cell neighbour : neighbourCells) {
                 if (vertexes.containsKey(neighbour)) {
-                    mazeGraph.addUndirectedWeightedEdge(current, neighbour, (int) (Math.abs(rnd.nextGaussian()) * neighbourFactor));
+                    mazeGraph.addUndirectedWeightedEdge(current, neighbour, (int) (Math.abs(rnd.nextGaussian()) * NEIGHBOUR_FACTOR));
                 }
             }
         }
+    }
 
-        Cell startCell = new Cell(1, 0, CellType.START);
+    private void findExit(Cell startCell) {
         startingPoint = startCell;
         mazeGraph.addVertex(startCell);
         mazeGraph.addUndirectedWeightedEdge(
                 startCell,
                 new Cell(1, 1, CellType.EMPTY),
-                (int) (Math.abs(rnd.nextGaussian()) * neighbourFactor)
+                (int) (Math.abs(rnd.nextGaussian()) * NEIGHBOUR_FACTOR)
         );
 
         boolean exitFound = false;
@@ -138,13 +127,21 @@ public class Maze implements Serializable {
                     mazeGraph.addUndirectedWeightedEdge(
                             currentCell,
                             exitCell,
-                            (int) (Math.abs(rnd.nextGaussian()) * neighbourFactor)
+                            (int) (Math.abs(rnd.nextGaussian()) * NEIGHBOUR_FACTOR)
                     );
                 }
                 j--;
             }
             i--;
         }
+    }
+
+    public void fillGrid() {
+        fillMazeByEmptyCells();
+
+        Cell startCell = new Cell(1, 0, CellType.START);
+
+        findExit(startCell);
 
         var prim = new Prim<>(mazeGraph);
 
