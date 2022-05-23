@@ -6,6 +6,11 @@ import maze.graph.Graph;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ *
+ * @author Nikolai Ogorodnik
+ * @param <T>
+ */
 public class Dijkstra<T extends Comparable<T> & Serializable> extends ShortestPathAlgorithm<T> {
 
     @Override

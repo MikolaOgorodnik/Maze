@@ -3,11 +3,16 @@ package maze.graph;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Edge of Graph
+ * @param <T> Vertex type. Any reference or primitive type.
+ * @author Nikolai Ogorodnik
+ */
 public class Edge<T extends Comparable<T> & Serializable>
         implements Comparable<Edge<T>>, Serializable {
 
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final int DEFAULT_WEIGHT = 1;
 
@@ -15,6 +20,13 @@ public class Edge<T extends Comparable<T> & Serializable>
     private final T vertexTo;
     private final double weight;
 
+    /**
+     *
+     *
+     * @param vertexFrom
+     * @param vertexTo
+     * @param weight
+     */
     public Edge(T vertexFrom, T vertexTo, double weight) {
         this.vertexFrom = vertexFrom;
         this.vertexTo = vertexTo;

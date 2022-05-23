@@ -6,15 +6,28 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Prim's algorithm.
+ * @author Nikolai Ogorodnik
+ * @param <T> Vertex type. Any reference or primitive type.
+ */
 public class Prim<T extends Comparable<T> & Serializable> {
     private final Graph<T> graph;
 
+    /**
+     * Constructs Prim's algorithm.
+     * @param graph Processed {@link Graph}.
+     */
     public Prim(Graph<T> graph) {
         this.graph = graph;
     }
 
+    /**
+     * Runs Prim's algorithm.
+     * @param startingPoint Starting vertex.
+     * @return Minimum spanning tree of type {@link Graph}.
+     */
     public Graph<T> run(T startingPoint) {
-
         Graph<T> mst = new Graph<>();
         mst.addVertex(startingPoint);
 
@@ -44,8 +57,6 @@ public class Prim<T extends Comparable<T> & Serializable> {
                     .filter(x -> verticesSet.contains(x.getVertexTo()))
                     .collect(Collectors.toCollection(TreeSet::new));
         }
-
         return mst;
     }
-
 }
