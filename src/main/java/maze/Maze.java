@@ -7,6 +7,10 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * Maze.
+ * @author Nikolai Ogorodnik
+ */
 public class Maze implements Serializable {
 
     @Serial
@@ -14,22 +18,53 @@ public class Maze implements Serializable {
 
     private static final int NEIGHBOUR_FACTOR = 9;
 
+    /**
+     * Height of a Maze.
+     */
     private final int height;
 
+    /**
+     * Width of a Maze.
+     */
     private final int width;
 
+    /**
+     * Entry of a maze.
+     */
     private Cell startingPoint;
 
+    /**
+     * Exit of a Maze.
+     */
     private Cell finishPoint;
 
+    /**
+     * Array representation of a Maze for exposition.
+     */
     private final CellType[][] grid;
 
+    /**
+     * {@link Graph} associated with a maze.
+     */
     private Graph<Cell> mazeGraph;
 
+    /**
+     * A chain of {@link Cell}s with the shortest path from Entry point to Exit.
+     */
     private List<Cell> solution;
 
+    /**
+     * Randomizer for Maze generation.
+     */
     private final Random rnd;
 
+    /**
+     * Constructs new Maze.
+     * @param height Vertical Maze size.
+     * @param width Horizontal Maze size
+     * @throws IllegalArgumentException when {@code height} or {@code width} less than 3 {@link Cell}s
+     * with message <b>"Too small maze size"</b>
+     */
     public Maze(int height, int width) throws IllegalArgumentException {
         if (height < 3 || width < 3) throw new IllegalArgumentException("Too small maze size");
         this.height = height;
@@ -39,10 +74,20 @@ public class Maze implements Serializable {
         this.rnd = new Random();
     }
 
+    /**
+     * Checks if current Maze object contains Maze of proper size.
+     *
+     * @return {@code True} if current Maze object contains Maze of proper size or {@code False} if not.
+     */
     public boolean isMazeExists() {
         return height > 2 && width > 2;
     }
 
+    /**
+     * Returns starting point of a Maze.
+     *
+     * @return {@code Optional<Cell>} contains (or not) starting point of a Maze.
+     */
     public Optional<Cell> findStartingPoint() {
         Cell found = null;
 
@@ -55,6 +100,9 @@ public class Maze implements Serializable {
         return Optional.ofNullable(found);
     }
 
+    /**
+     * Converts associated {@link Graph} to Maze.
+     */
     private void graphToMaze() {
         for (CellType[] cellRow : grid) {
             Arrays.fill(cellRow, CellType.WALL);
@@ -65,6 +113,16 @@ public class Maze implements Serializable {
         }
     }
 
+    /**
+     * Sets isolated "Rooms" with empty space "  ".
+     * <pre>
+     *   Example for 5x5 Maze: ██████████
+     *                         ██  ██  ██
+     *                         ██████████
+     *                         ██  ██  ██
+     *                         ██████████
+     * </pre>
+     */
     private void fillMazeByEmptyCells() {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
@@ -136,6 +194,9 @@ public class Maze implements Serializable {
         }
     }
 
+    /**
+     * Constructs a Maze.
+     */
     public void fillGrid() {
         fillMazeByEmptyCells();
 
@@ -184,12 +245,18 @@ public class Maze implements Serializable {
 
     }
 
+    /**
+     * Uses Dijkstra's shortest path algorithm to solve the Maze.
+     */
     private void solveMaze() {
         Dijkstra<Cell> dijkstra = new Dijkstra<>();
 
         solution = dijkstra.getShortestPath(mazeGraph, startingPoint, finishPoint);
     }
 
+    /**
+     * @return Console representation of solved Maze.
+     */
     public String showSolution() {
         solveMaze();
         for (CellType[] cellRow : grid) {

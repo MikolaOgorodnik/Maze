@@ -9,7 +9,7 @@ import java.util.*;
 /**
  *
  * @author Nikolai Ogorodnik
- * @param <T>
+ * @param <T> Vertex type. Any reference or primitive type.
  */
 public class Dijkstra<T extends Comparable<T> & Serializable> extends ShortestPathAlgorithm<T> {
 

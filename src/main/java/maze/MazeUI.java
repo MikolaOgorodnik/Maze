@@ -3,11 +3,19 @@ package maze;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * This class provides main menu for console representation of Maze Solver.
+ * @author Nikolai Ogorodnik
+ */
 public class MazeUI {
 
     private Maze maze;
     private final Scanner scan;
 
+    /**
+     * Constructs main menu for console representation of Maze Solver.
+     * @param scan Scanner object.
+     */
     public MazeUI(Scanner scan) {
         this.scan = scan;
     }
@@ -82,6 +90,9 @@ public class MazeUI {
         System.out.println("0. Exit");
     }
 
+    /**
+     *
+     */
     public void start() {
 
         int selectedMenuIdx = -1;
@@ -116,7 +127,11 @@ public class MazeUI {
     }
 
     /**
-     * Serialize the given object to the file
+     * Serialize the given object to the file.
+     *
+     * @param obj Object to be serialized.
+     * @param fileName Name of a file for serialization.
+     * @throws IOException when given Object couldn't be serialized.
      */
     public static void serialize(Object obj, String fileName) throws IOException {
         try (
@@ -128,7 +143,12 @@ public class MazeUI {
     }
 
     /**
-     * Deserialize to an object from the file
+     * Deserialize to an object from the file.
+     *
+     * @param fileName Name of a file for deserialization.
+     * @return Deserialized Object.
+     * @throws IOException when given Object couldn't be deserialized.
+     * @throws ClassNotFoundException when the given object cannot be cast to the specified type.
      */
     public static Object deserialize(String fileName) throws IOException, ClassNotFoundException {
         try (

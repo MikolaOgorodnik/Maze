@@ -15,7 +15,7 @@ public abstract class ShortestPathAlgorithm<T extends Comparable<T> & Serializab
     private ArrayList<T> shortestPath = new ArrayList<>();
 
     /**
-     *Returns the shortest path.
+     * Returns the shortest path.
      *
      * @param src Starting vertex
      * @param destination Finishing vertex
