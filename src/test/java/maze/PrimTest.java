@@ -1,7 +1,7 @@
 package maze;
 
 import maze.graph.Graph;
-import org.junit.jupiter.api.Disabled;
+import maze.graph.Prim;
 import org.junit.jupiter.api.Test;
 
 import java.util.logging.Level;

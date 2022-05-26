@@ -1,6 +1,7 @@
 package maze;
 
 
+import maze.graph.Dijkstra;
 import maze.graph.Graph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

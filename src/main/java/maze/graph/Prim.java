@@ -1,4 +1,4 @@
-package maze;
+package maze.graph;
 
 import maze.graph.Graph;
 
@@ -33,6 +33,7 @@ public class Prim<T extends Comparable<T> & Serializable> {
 
         var verticesSet = new HashSet<>(graph.getVerticesSet());
         var edges = new TreeSet<>(graph.getAdjVertices(startingPoint));
+
         verticesSet.remove(startingPoint);
 
         while (!verticesSet.isEmpty()) {
@@ -57,6 +58,7 @@ public class Prim<T extends Comparable<T> & Serializable> {
                     .filter(x -> verticesSet.contains(x.getVertexTo()))
                     .collect(Collectors.toCollection(TreeSet::new));
         }
+
         return mst;
     }
 }

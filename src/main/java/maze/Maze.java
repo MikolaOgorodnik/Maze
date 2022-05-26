@@ -1,7 +1,9 @@
 package maze;
 
+import maze.graph.Dijkstra;
 import maze.graph.Edge;
 import maze.graph.Graph;
+import maze.graph.Prim;
 
 import java.io.Serial;
 import java.io.Serializable;
