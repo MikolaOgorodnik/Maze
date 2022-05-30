@@ -1,4 +1,4 @@
-package maze;
+package maze.graph;
 
 import maze.graph.Graph;
 import maze.graph.Prim;

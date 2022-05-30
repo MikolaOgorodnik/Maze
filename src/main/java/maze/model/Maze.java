@@ -1,4 +1,4 @@
-package maze;
+package maze.model;
 
 import maze.graph.Dijkstra;
 import maze.graph.Edge;

@@ -1,6 +1,6 @@
 package maze.graph;
 
-import maze.ShortestPathAlgorithm;
+import maze.model.ShortestPathAlgorithm;
 
 import java.io.Serializable;
 import java.util.*;

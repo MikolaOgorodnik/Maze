@@ -1,4 +1,4 @@
-package maze;
+package maze.model;
 
 /**
  * Type of cell.

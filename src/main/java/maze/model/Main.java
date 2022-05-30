@@ -1,4 +1,4 @@
-package maze;
+package maze.model;
 
 import java.util.Scanner;
 

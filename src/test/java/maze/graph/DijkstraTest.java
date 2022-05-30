@@ -1,8 +1,9 @@
-package maze;
+package maze.graph;
 
 
 import maze.graph.Dijkstra;
 import maze.graph.Graph;
+import maze.model.ShortestPathAlgorithm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
