@@ -5,11 +5,15 @@ import java.io.Serializable;
 
 /**
  * Edge of Graph
- * @author Nikolai Ogorodnik
+ *
  * @param <T> Vertex type. Any reference or primitive type.
+ * @author Nikolai Ogorodnik
  */
-public record Edge<T extends Comparable<T> & Serializable>(T vertexFrom, T vertexTo, double weight)
-        implements Comparable<Edge<T>>, Serializable {
+public record Edge<T extends Comparable<T> & Serializable>(
+        T vertexFrom,
+        T vertexTo,
+        double weight
+) implements Comparable<Edge<T>>, Serializable {
 
     @Serial
     private static final long serialVersionUID = 2L;
