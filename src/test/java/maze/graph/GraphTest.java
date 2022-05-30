@@ -8,72 +8,96 @@ import static org.junit.jupiter.api.Assertions.*;
 class GraphTest {
 
     private static Graph<String> testGraph;
-    private static String testVertexKate;
-    private static String testVertexMikola;
-    private static String testVertexMira;
-    private static String testVertexTony;
+    private static String testLabelKate;
+    private static String testLabelMikola;
+    private static String testLabelMira;
+    private static String testLabelTony;
 
     @BeforeEach
     void setUp() {
         testGraph = new Graph<>();
-        testVertexKate   = "Kate";
-        testVertexMikola = "Mikola";
-        testVertexMira   = "Mira";
-        testVertexTony   = "Tony";
+        testLabelKate = "Kate";
+        testLabelMikola = "Mikola";
+        testLabelMira = "Mira";
+        testLabelTony = "Tony";
 
-        testGraph.addVertex(testVertexKate);
-        testGraph.addVertex(testVertexMikola);
+        testGraph.addVertex(testLabelKate);
+        testGraph.addVertex(testLabelMikola);
     }
 
     @Test
     @Order(1)
     void addVertexTest() {
-        assertNotNull(testGraph.getAdjVertices(testVertexKate));
-        assertNotNull(testGraph.getAdjVertices(testVertexMikola));
+        assertNotNull(testGraph.getAdjVertices(testLabelKate));
+        assertNotNull(testGraph.getAdjVertices(testLabelMikola));
         assertEquals(2, testGraph.getEntireGraph().size());
     }
 
     @Test
     @Order(2)
-    @Disabled
+    //@Disabled
     void addUndirectedUnweightedEdgeTest() {
-        testGraph.addVertex(testVertexMira);
-        testGraph.addUndirectedUnweightedEdge(testVertexKate, testVertexMira);
-        assertTrue(testGraph.getAdjVertices(testVertexKate).contains(new Edge<>(testVertexMira)));
+        testGraph.addUndirectedUnweightedEdge(testLabelKate, testLabelMikola);
+
+        var kateEdges = testGraph.getAdjVertices(testLabelKate);
+        var mikolaEdges = testGraph.getAdjVertices(testLabelMikola);
+
+        assertNotNull(kateEdges);
+        assertNotNull(mikolaEdges);
+
+        assertTrue(kateEdges.contains(new Edge<>(testLabelKate, testLabelMikola, 1D)));
+        assertTrue(mikolaEdges.contains(new Edge<>(testLabelMikola, testLabelKate, 1D)));
     }
 
     @Test
     @Order(3)
-    @Disabled
+    //@Disabled
     void addUndirectedWeightedEdgeTest() {
         double weight = 4.4d;
-        testGraph.addVertex(testVertexTony);
-        testGraph.addUndirectedWeightedEdge(testVertexKate, testVertexTony, weight);
-        var adjVertices = testGraph.getAdjVertices(testVertexKate);
 
-        assertTrue(adjVertices.contains(new Edge<>(testVertexTony, weight)));
+        testGraph.addUndirectedWeightedEdge(testLabelKate, testLabelTony, weight);
+
+        var kateEdges = testGraph.getAdjVertices(testLabelKate);
+        var tonyEdges = testGraph.getAdjVertices(testLabelTony);
+
+        assertNotNull(kateEdges);
+        assertNotNull(tonyEdges);
+
+        assertTrue(kateEdges.contains(new Edge<>(testLabelKate, testLabelTony, weight)));
+        assertTrue(tonyEdges.contains(new Edge<>(testLabelTony, testLabelKate, weight)));
     }
 
     @Test
     @Order(4)
-    @Disabled
+    //@Disabled
     void addDirectedUnweightedEdge() {
-        testGraph.addVertex(testVertexMira);
-        testGraph.addDirectedUnweightedEdge(testVertexKate, testVertexMira);
+        testGraph.addDirectedUnweightedEdge(testLabelKate, testLabelMira);
 
-        assertTrue(
-                testGraph.getAdjVertices(testVertexKate).contains(new Edge<>(testVertexMira)) &&
-                        !testGraph.getAdjVertices(testVertexMira).contains(new Edge<>(testVertexKate))
-        );
+        var kateEdges = testGraph.getAdjVertices(testLabelKate);
+        var miraEdges = testGraph.getAdjVertices(testLabelMira);
+
+        assertNotNull(kateEdges);
+        assertNotNull(miraEdges);
+
+        assertTrue(kateEdges.contains(new Edge<>(testLabelKate, testLabelMira, 1D)));
+        assertFalse(miraEdges.contains(new Edge<>(testLabelMira, testLabelKate, 1D)));
     }
 
     @Test
     @Order(5)
-    @Disabled
+    //@Disabled
     void addDirectedWeightedEdge() {
-        testGraph.addVertex(testVertexTony);
-        testGraph.addDirectedWeightedEdge(testVertexMikola, testVertexTony, 3);
+        double weight = 3.7D;
 
-        assertNotNull(testGraph.getAdjVertices(testVertexTony));
+        testGraph.addDirectedWeightedEdge(testLabelMikola, testLabelTony, weight);
+
+        var mikolaEdges = testGraph.getAdjVertices(testLabelMikola);
+        var tonyEdges = testGraph.getAdjVertices(testLabelTony);
+
+        assertNotNull(mikolaEdges);
+        assertNotNull(tonyEdges);
+
+        assertTrue(mikolaEdges.contains(new Edge<>(testLabelMikola, testLabelTony, weight)));
+        assertFalse(tonyEdges.contains(new Edge<>(testLabelTony, testLabelMikola, weight)));
     }
 }

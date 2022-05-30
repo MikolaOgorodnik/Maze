@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * Graph class represented with adjacency list.
- *<br><br>
+ *<br>
  * @author Nikolai Ogorodnik
  * @version 1.5
  */
@@ -14,6 +14,8 @@ public class Graph<T extends Comparable<T> & Serializable> implements Serializab
 
     @Serial
     private static final long serialVersionUID = 1L;
+
+    private static final double DEFAULT_WEIGHT = 1D;
 
     /**
      * A Map of Vertices as a keys with Set of adjacent Edges.
@@ -30,7 +32,7 @@ public class Graph<T extends Comparable<T> & Serializable> implements Serializab
 
     /**
      * Adds new Vertex to a graph.
-     *<br><br>
+     *<br>
      * @param vertex a vertex to be added.
      */
     public void addVertex(T vertex) {
@@ -39,7 +41,7 @@ public class Graph<T extends Comparable<T> & Serializable> implements Serializab
 
     /**
      * Returns adjacent vertices.
-     *<br><br>
+     *<br>
      * @param vertex a vertex whose edges to be returned.
      * @return {@code Set} of adjacent edges.
      */
@@ -49,7 +51,7 @@ public class Graph<T extends Comparable<T> & Serializable> implements Serializab
 
     /**
      * Returns {@code Map} contains whole graph collection.
-     *<br><br>
+     *<br>
      * @return {@code Map} contains whole graph collection.
      */
     public Map<T, Set<Edge<T>>> getEntireGraph() {
@@ -58,72 +60,80 @@ public class Graph<T extends Comparable<T> & Serializable> implements Serializab
 
     /**
      * A complete {@code Set} of edges.
-     *<br><br>
+     *<br>
      * @return a complete {@code Set} of edges.
      */
     public Set<T> getVerticesSet() {
         return adjVertices.keySet();
     }
 
+    private void addMissingVertices(T label1, T label2){
+        if (!adjVertices.containsKey(label1)) addVertex(label1);
+        if (!adjVertices.containsKey(label2)) addVertex(label2);
+    }
+
     /**
      * This method adds an <b>undirected unweighted</b> edge to graph.
-     *<br><br>
-     * @param vertex1 vertex from
-     * @param vertex2 vertex to
+     *<br>
+     * @param label1 vertex from
+     * @param label2 vertex to
      */
-    public void addUndirectedUnweightedEdge(T vertex1, T vertex2) {
-        this.adjVertices.get(vertex1).add(new Edge<>(vertex2));
-        this.adjVertices.get(vertex2).add(new Edge<>(vertex1));
+    public void addUndirectedUnweightedEdge(T label1, T label2) {
+        addUndirectedWeightedEdge(label1, label2, DEFAULT_WEIGHT);
     }
 
     /**
      * This method adds an <b>undirected weighted</b> edge to graph.
-     *<br><br>
-     * @param vertex1 vertex from
-     * @param vertex2 vertex to
+     *<br>
+     * @param label1 vertex from
+     * @param label2 vertex to
      * @param weight weight of an edge
      */
-    public void addUndirectedWeightedEdge(T vertex1, T vertex2, double weight) {
-        this.adjVertices.get(vertex1).add(new Edge<>(vertex1, vertex2, weight));
-        this.adjVertices.get(vertex2).add(new Edge<>(vertex2, vertex1, weight));
+    public void addUndirectedWeightedEdge(T label1, T label2, double weight) {
+        addMissingVertices(label1, label2);
+
+        this.adjVertices.get(label1).add(new Edge<>(label1, label2, weight));
+        this.adjVertices.get(label2).add(new Edge<>(label2, label1, weight));
     }
 
     /**
      *This method adds an <b>directed unweighted</b> edge to graph.
-     *<br><br>
-     * @param vertex1 vertex from
-     * @param vertex2 vertex to
+     *<br>
+     * @param label1 vertex from
+     * @param label2 vertex to
      */
-    public void addDirectedUnweightedEdge(T vertex1, T vertex2) {
-        this.adjVertices.get(vertex1).add(new Edge<>(vertex2));
+    public void addDirectedUnweightedEdge(T label1, T label2) {
+        addDirectedWeightedEdge(label1, label2, DEFAULT_WEIGHT);
     }
 
     /**
      * This method adds an <b>directed weighted</b> edge to graph.
-     *<br><br>
-     * @param vertex1 vertex from
-     * @param vertex2 vertex to
+     *<br>
+     * @param label1 vertex from
+     * @param label2 vertex to
      * @param weight weight of an edge
      */
-    public void addDirectedWeightedEdge(T vertex1, T vertex2, long weight) {
-        this.adjVertices.get(vertex1).add(new Edge<>(vertex2, weight));
+    public void addDirectedWeightedEdge(T label1, T label2, double weight) {
+        addMissingVertices(label1, label2);
+
+        this.adjVertices.get(label1).add(new Edge<>(label1, label2, weight));
     }
 
     /**
      *This method delete an <b>undirected</b> edge to graph.
-     *<br><br>
-     * @param vertex1 vertex from
-     * @param vertex2 vertex to
+     *<br>
+     * @param label1 vertex from
+     * @param label2 vertex to
      */
-    public void deleteUndirectedEdge(T vertex1, T vertex2) {
-        adjVertices.get(vertex1).remove(new Edge<T>(vertex1, vertex2, 0));
-        adjVertices.get(vertex2).remove(new Edge<T>(vertex2, vertex1, 0));
+    public void deleteUndirectedEdge(T label1, T label2) {
+        adjVertices.get(label1).remove(new Edge<T>(label1, label2, 0));
+        adjVertices.get(label2).remove(new Edge<T>(label2, label1, 0));
     }
 
     /**
      * Compares <b>adjacent vertices</b> of a graph with the other graph.
      * Returns {@code true} if the compared graphs are the same, {@code false} otherwise.
-     *<br><br>
+     *<br>
      * @param o compared graph
      * @return {@code true} if the compared graphs are the same, {@code false} otherwise.
      */

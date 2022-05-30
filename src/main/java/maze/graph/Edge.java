@@ -8,64 +8,11 @@ import java.io.Serializable;
  * @author Nikolai Ogorodnik
  * @param <T> Vertex type. Any reference or primitive type.
  */
-public class Edge<T extends Comparable<T> & Serializable>
+public record Edge<T extends Comparable<T> & Serializable>(T vertexFrom, T vertexTo, double weight)
         implements Comparable<Edge<T>>, Serializable {
 
     @Serial
     private static final long serialVersionUID = 2L;
-
-    private static final int DEFAULT_WEIGHT = 1;
-
-    /**
-     * First connected Vertex or initial Vertex for directed graphs.
-     */
-    private final T vertexFrom;
-
-    /**
-     * Second connected Vertex or destination Vertex for directed graphs.
-     */
-    private final T vertexTo;
-
-    /**
-     * Weight of an Edge.
-     */
-    private final double weight;
-
-    /**
-     * Constructs Edge for undirected weighted graphs.
-     *
-     * @param vertexFrom Initial Vertex.
-     * @param vertexTo Destination Vertex.
-     * @param weight Weight of an Edge.
-     */
-    public Edge(T vertexFrom, T vertexTo, double weight) {
-        this.vertexFrom = vertexFrom;
-        this.vertexTo = vertexTo;
-        this.weight = weight;
-    }
-
-    /**
-     * Constructs Edge for directed weighted graphs.
-     *
-     * @param vertexTo Destination Vertex.
-     * @param weight Weight of an Edge.
-     */
-    public Edge(T vertexTo, double weight) {
-        this.vertexFrom = null;
-        this.vertexTo = vertexTo;
-        this.weight = weight;
-    }
-
-    /**
-     * Constructs Edge for directed unweighted graphs.
-     *
-     * @param vertexTo Destination Vertex.
-     */
-    public Edge(T vertexTo) {
-        this.vertexFrom = null;
-        this.vertexTo = vertexTo;
-        this.weight = DEFAULT_WEIGHT;
-    }
 
     /**
      * @return first connected Vertex or initial Vertex for directed graphs.
@@ -91,9 +38,7 @@ public class Edge<T extends Comparable<T> & Serializable>
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Edge)) return false;
-
-        Edge<?> edge = (Edge<?>) o;
+        if (!(o instanceof Edge<?> edge)) return false;
 
         if (!getVertexFrom().equals(edge.getVertexFrom())) return false;
         return getVertexTo().equals(edge.getVertexTo());
