@@ -1,6 +1,8 @@
 package maze.graph;
 
 import maze.graph.Graph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.*;
@@ -12,6 +14,9 @@ import java.util.stream.Collectors;
  * @param <T> Vertex type. Any reference or primitive type.
  */
 public class Prim<T extends Comparable<T> & Serializable> {
+
+    private final Logger logger = LoggerFactory.getLogger(Prim.class);
+
     private final Graph<T> graph;
 
     /**
@@ -28,6 +33,8 @@ public class Prim<T extends Comparable<T> & Serializable> {
      * @return Minimum spanning tree of type {@link Graph}.
      */
     public Graph<T> run(T startingPoint) {
+        logger.info("MST calculation started.");
+
         Graph<T> mst = new Graph<>();
         mst.addVertex(startingPoint);
 
@@ -59,6 +66,8 @@ public class Prim<T extends Comparable<T> & Serializable> {
                     .collect(Collectors.toCollection(TreeSet::new));
         }
 
+        logger.info("MST calculated.");
+        logger.debug(mst.toString());
         return mst;
     }
 }

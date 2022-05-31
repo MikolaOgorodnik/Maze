@@ -1,6 +1,9 @@
 package maze.graph;
 
+import maze.controller.MazeWebController;
 import maze.model.ShortestPathAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.*;
@@ -12,8 +15,12 @@ import java.util.*;
  */
 public class Dijkstra<T extends Comparable<T> & Serializable> extends ShortestPathAlgorithm<T> {
 
+    private final Logger logger = LoggerFactory.getLogger(Dijkstra.class);
+
     @Override
     public List<T> getShortestPath(Graph<T> graph, T source, T destination) {
+
+        logger.info("Shortest path calculation started.");
 
         class Vertex implements Comparable<Vertex>  {
             private T id;
@@ -111,6 +118,7 @@ public class Dijkstra<T extends Comparable<T> & Serializable> extends ShortestPa
             }
         }
 
+        logger.info("Shortest path calculated.");
         return new ArrayList<>(distances.keySet());
     }
 }

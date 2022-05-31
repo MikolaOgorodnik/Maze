@@ -6,23 +6,17 @@ import maze.graph.Graph;
 import maze.model.ShortestPathAlgorithm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DijkstraTest {
 
-    private Logger logger;
-
     private static Graph<String> testGraph;
-
-    {
-        logger = Logger.getLogger(this.getClass().getName());
-    }
 
     @BeforeEach
     void setUp() {
@@ -59,7 +53,8 @@ class DijkstraTest {
 
     @Test
     void getShortestPath() {
-        logger.log(Level.INFO, "Start testing Dijkstra");
+        Logger logger = LoggerFactory.getLogger(DijkstraTest.class);
+        logger.info("Test Dijkstra Started!");
 
         String testVertexKate   = "Kate";
         String testVertexMikola = "Mikola";
@@ -83,6 +78,6 @@ class DijkstraTest {
 
         assertEquals(testData, result);
 
-        logger.log(Level.INFO, "Test Dijkstra Finished!");
+        logger.info("Test Dijkstra Finished!");
     }
 }

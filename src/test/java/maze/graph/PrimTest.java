@@ -3,9 +3,10 @@ package maze.graph;
 import maze.graph.Graph;
 import maze.graph.Prim;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,8 +15,8 @@ class PrimTest {
     @Test
         //@Disabled
     void runTest() {
-        Logger logger = Logger.getLogger(this.getClass().getName());
-        logger.log(Level.INFO, "Start testing Prims algorithm");
+        Logger logger = LoggerFactory.getLogger(PrimTest.class);
+        logger.info("Start testing Prims algorithm");
 
         Graph<String> givenGraph = new Graph<>();
         givenGraph.addVertex("0");
@@ -65,6 +66,6 @@ class PrimTest {
 
         assertEquals(ethalonMST, mst);
 
-        logger.log(Level.INFO, "Finish testing Prims algorithm");
+        logger.info("Finish testing Prims algorithm");
     }
 }
