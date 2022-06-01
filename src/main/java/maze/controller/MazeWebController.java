@@ -8,12 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Date;
 
-//@EnableWebMvc
 @Controller
 @RequestMapping({ "/", "/index" })
 public class MazeWebController {
@@ -26,11 +23,11 @@ public class MazeWebController {
         appMode = environment.getProperty("app-mode");
     }
 
-
     @GetMapping
     public String index(Model model){
         logger.info("Root mapping started.");
         model.addAttribute("datetime", new Date());
+        model.addAttribute("appName", "Maze");
         model.addAttribute("username", "Mikola");
         model.addAttribute("mode", appMode);
 
