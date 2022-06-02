@@ -4,9 +4,6 @@ plugins {
     id 'java'
 }
 
-ext.jUnitVersion = '5.8.2'
-ext.springBootVersion = '2.7.0'
-
 group 'org.mikolao'
 version '1.0-SNAPSHOT'
 
@@ -14,12 +11,14 @@ repositories {
     mavenCentral()
 }
 
+ext.jUnitVersion = '5.8.2'
+ext.springBootVersion = '2.7.0'
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-freemarker'
-    implementation "org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion"
     testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:$jUnitVersion"
