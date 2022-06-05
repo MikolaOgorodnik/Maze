@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public class MazeUI {
 
-    private Maze maze;
+    private MazeImpl maze;
     private final Scanner scan;
 
     /**
@@ -43,8 +43,7 @@ public class MazeUI {
         }
 
         try {
-            maze = new Maze(height, width);
-            maze.fillGrid();
+            maze = new MazeImpl(height, width);
             showMaze();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -66,7 +65,7 @@ public class MazeUI {
         scan.nextLine();
         String fileName = scan.nextLine();
         try {
-            maze = (Maze) deserialize(fileName);
+            maze = (MazeImpl) deserialize(fileName);
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Cannot load the maze. It has an invalid format");
         }

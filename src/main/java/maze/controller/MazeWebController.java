@@ -1,5 +1,7 @@
 package maze.controller;
 
+import maze.model.Maze;
+import maze.model.MazeImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import java.time.format.DateTimeFormatter;
 public class MazeWebController {
     private final Logger logger = LoggerFactory.getLogger(MazeWebController.class);
 
+    private Maze maze;
+
     private final String appname;
 
     private final DateTimeFormatter formatter;
@@ -26,6 +30,7 @@ public class MazeWebController {
         appname = env.getProperty("spring.application.name", "Maze");
         String dateFormatter = env.getProperty("localdatetime.format", "dd.MM.yyyy HH:mm:ss");
         formatter = DateTimeFormatter.ofPattern(dateFormatter);
+        maze = new MazeImpl(15, 15);
     }
 
     public String getDateFormatted(LocalDateTime date) {
@@ -38,7 +43,17 @@ public class MazeWebController {
         model.addAttribute("datetime", getDateFormatted(LocalDateTime.now()));
         model.addAttribute("appname", appname);
         model.addAttribute("username", "Mikola");
-
+        if (maze.isMazeExists()) {
+            model.addAttribute("isMazeExists", maze.isMazeExists());
+            model.addAttribute("maze", maze.toString());
+        }
         return "index";
+    }
+
+    @GetMapping("/generate")
+    public String generate(Model model){
+        logger.info("Generate mapping started.");
+        model.addAttribute("appname", appname);
+        return "generate";
     }
 }
