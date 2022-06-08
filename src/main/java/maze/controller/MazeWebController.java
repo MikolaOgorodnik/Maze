@@ -30,7 +30,7 @@ public class MazeWebController {
         appname = env.getProperty("spring.application.name", "Maze");
         String dateFormatter = env.getProperty("localdatetime.format", "dd.MM.yyyy HH:mm:ss");
         formatter = DateTimeFormatter.ofPattern(dateFormatter);
-        maze = new MazeImpl(15, 15);
+
     }
 
     public String getDateFormatted(LocalDateTime date) {
@@ -40,6 +40,7 @@ public class MazeWebController {
     @GetMapping
     public String index(Model model){
         logger.info("Root mapping started.");
+        maze = new MazeImpl(15, 15);
         model.addAttribute("datetime", getDateFormatted(LocalDateTime.now()));
         model.addAttribute("appname", appname);
         model.addAttribute("username", "Mikola");

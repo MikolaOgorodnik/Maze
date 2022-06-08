@@ -14,7 +14,6 @@ public record Edge<T extends Comparable<T> & Serializable>(
         T vertexTo,
         double weight
 ) implements Comparable<Edge<T>>, Serializable {
-
     @Serial
     private static final long serialVersionUID = 2L;
 

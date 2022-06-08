@@ -218,19 +218,19 @@ public class MazeImpl implements Maze, Serializable {
 
         if (rnd.nextBoolean()) {
             // X axis selected
-            startingX = rnd.nextInt(width);
+            startingX = rnd.nextInt(1,width/2);
         } else {
             // Y axis
-            startingY = rnd.nextInt(height);
+            startingY = rnd.nextInt(1, height/2);
         }
 
         if (rnd.nextBoolean()) {
             // X axis selected
 
-            finishingX =      rnd.nextInt(width);
+            finishingX = rnd.nextInt(width - 1);
         } else {
             // Y axis
-            finishingY = rnd.nextInt(height);
+            finishingY = rnd.nextInt(height - 1);
         }
 
         Cell startCell = new Cell(startingX, startingY, CellType.START);
