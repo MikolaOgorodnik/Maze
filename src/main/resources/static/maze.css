@@ -1,0 +1,96 @@
+
+.cell {
+    float: left;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    margin-right: 0px;
+/ / - 1 px margin-bottom: 0 px;
+/ / - 1 px background: url(image/breadcrumb.png) no-repeat - 10 px;
+}
+
+.edge {
+    background-color: #ffcd39;
+}
+
+.left {
+    border-left: 2px solid #000000;
+}
+
+.right {
+    border-right: 2px solid #000000;
+}
+
+.top {
+    border-top: 2px solid #000000;
+}
+
+.bottom {
+    border-bottom: 2px solid #000000;
+}
+
+.noleft {
+    border-left: 2px solid transparent;
+}
+
+.noright {
+    border-right: 2px solid transparent;
+}
+
+.notop {
+    border-top: 2px solid transparent;
+}
+
+.nobottom {
+    border-bottom: 2px solid transparent;
+}
+
+.mrow {
+    float: left;
+}
+
+#box {
+    margin: 0px auto 30px;
+    overflow: hidden;
+    padding-bottom: 1px;
+    background-color: #fff;
+    visibility: hidden;
+}
+
+@media screen {
+    #details {
+        margin: 1.5em .75em .5em;
+        padding: 1em;
+        border: 1px solid #ddd;
+        background-color: #fff;
+    }
+
+    #mazeform {
+        padding: .5em;
+        margin: auto;
+        border: 1px solid #ddd;
+        background-color: #f4f4f4;
+    }
+
+    input {
+        padding: 0 20px 0 0;
+        margin: 0 5px 0 0;
+        vertical-align: middle;
+    }
+}
+
+@media print {
+    #details {
+        display: none;
+    }
+}
+
+.cell {
+    height: 20px;
+}
+
+/* this rule must next to last */
+.cell {
+    width: 20px;
+}
+
+/* this rule must be last */

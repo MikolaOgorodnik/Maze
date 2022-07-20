@@ -8,14 +8,9 @@ package maze.model;
 public enum CellType {
 
     /**
-     * Wall.
-     */
-    WALL("██"),
-
-    /**
      * Empty space.
      */
-    EMPTY("  "),
+    PASSAGE("  "),
 
     /**
      * Starting point of maze.

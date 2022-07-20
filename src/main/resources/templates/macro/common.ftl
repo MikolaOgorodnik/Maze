@@ -6,6 +6,7 @@
         <title>${appname}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/maze.css" rel="stylesheet">
         <script src="/static/js/bootstrap.bundle.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
     </head>

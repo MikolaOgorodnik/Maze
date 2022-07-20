@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maze</title>
+    <style type="text/css">
+
+        .cell {
+            float: left;
+            border-right: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            margin-right: 0px;
+        / / - 1 px margin-bottom: 0 px;
+        / / - 1 px background: url(image/breadcrumb.png) no-repeat - 10 px;
+        }
+
+        .left {
+            border-left: 3px solid #000000;
+        }
+
+        .right {
+            border-right: 3px solid #000000;
+        }
+
+        .top {
+            border-top: 3px solid #000000;
+        }
+
+        .bottom {
+            border-bottom: 3px solid #000000;
+        }
+
+        .noleft {
+            border-left: 3px solid transparent;
+        }
+
+        .noright {
+            border-right: 3px solid transparent;
+        }
+
+        .notop {
+            border-top: 3px solid transparent;
+        }
+
+        .nobottom {
+            border-bottom: 3px solid transparent;
+        }
+
+        .mrow {
+            float: left;
+        }
+
+        #box {
+            margin: 0px auto 30px;
+            overflow: hidden;
+            padding-bottom: 1px;
+            background-color: #fff;
+            visibility: hidden;
+        }
+
+        @media screen {
+            #details {
+                margin: 1.5em .75em .5em;
+                padding: 1em;
+                border: 1px solid #ddd;
+                background-color: #fff;
+            }
+
+            #mazeform {
+                padding: .5em;
+                margin: auto;
+                border: 1px solid #ddd;
+                background-color: #f4f4f4;
+            }
+
+            input {
+                padding: 0 20px 0 0;
+                margin: 0 5px 0 0;
+                vertical-align: middle;
+            }
+        }
+
+        @media print {
+            #details {
+                display: none;
+            }
+        }
+
+        .cell {
+            height: 40px;
+        }
+
+        /* this rule must next to last */
+        .cell {
+            width: 40px;
+        }
+
+        /* this rule must be last */
+
+    </style>
+</head>
+<body>
+<div id="box" style="width: 328px; visibility: visible;">
+    <div id="maze">
+        <div class="mrow">
+            <div class="cell left top noright nobottom" ></div>
+            <div class="cell top noright bottom" ></div>
+            <div class="cell top noright bottom" ></div>
+            <div class="cell notop noright bottom" ></div>
+            <div class="cell top noright bottom" ></div>
+            <div class="cell top right nobottom" ></div>
+            <div class="cell top right nobottom" ></div>
+        </div>
+        <div class="mrow">
+            <div class="cell left noright nobottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell right nobottom" ></div>
+            <div class="cell noright nobottom" ></div>
+            <div class="cell right bottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell right nobottom" ></div>
+        </div>
+        <!--<div class="mrow">
+            <div class="cell left noright bottom" ></div>
+            <div class="cell right bottom" ></div>
+            <div class="cell right nobottom" ></div>
+            <div class="cell noright nobottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell right bottom" ></div>
+        </div>
+        <div class="mrow">
+            <div class="cell left noright nobottom" ></div>
+            <div class="cell right nobottom" ></div>
+            <div class="cell right nobottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell right nobottom" ></div>
+            <div class="cell right nobottom" ></div>
+        </div>
+        <div class="mrow">
+            <div class="cell left right nobottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell right bottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell noright nobottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell right bottom" ></div>
+        </div>
+        <div class="mrow">
+            <div class="cell left right nobottom" ></div>
+            <div class="cell noright nobottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell right nobottom" ></div>
+            <div class="cell right bottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell right nobottom" ></div>
+        </div>
+        <div class="mrow">
+            <div class="cell left right nobottom" ></div>
+            <div class="cell right nobottom" ></div>
+            <div class="cell right nobottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell noright nobottom" ></div>
+            <div class="cell right bottom" ></div>
+            <div class="cell right nobottom" ></div>
+        </div>
+        <div class="mrow">
+            <div class="cell left right nobottom" ></div>
+            <div class="cell right nobottom" ></div>
+            <div class="cell noright nobottom" ></div>
+            <div class="cell right nobottom" ></div>
+            <div class="cell right nobottom" ></div>
+            <div class="cell noright nobottom" ></div>
+            <div class="cell right bottom" ></div>
+        </div>
+        <div class="mrow">
+            <div class="cell left noright bottom" ></div>
+            <div class="cell noright" ></div>
+            <div class="cell right bottom" ></div>
+            <div class="cell right bottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell noright bottom" ></div>
+            <div class="cell right bottom" ></div>
+        </div> -->
+    </div>
+</div>
+
+</body>
+</html>

@@ -19,6 +19,15 @@ public class Cell implements Comparable<Cell>, Serializable {
     private static final long serialVersionUID = 2L;
 
     /**
+     * Sets type of Cell.
+     * <br><br>
+     * @param cellType Cell Type see: {@link CellType CellType}
+     */
+    public void setCellType(CellType cellType) {
+        this.cellType = cellType;
+    }
+
+    /**
      * <b>X</b> coordinate of cell/
      */
     private final int x;
@@ -35,6 +44,8 @@ public class Cell implements Comparable<Cell>, Serializable {
      */
     private CellType cellType;
 
+    private String borderClass;
+
     /**
      * Constructs new Cell of a maze.
      * <br><br>
@@ -42,7 +53,7 @@ public class Cell implements Comparable<Cell>, Serializable {
      * @param y Y coordinate of Cell.
      * @param cellType type of Cell.
      */
-    public Cell(int x, int y, CellType cellType) {
+    public Cell(int y, int x, CellType cellType) {
         this.x = x;
         this.y = y;
         this.cellType = cellType;
@@ -57,13 +68,12 @@ public class Cell implements Comparable<Cell>, Serializable {
         return cellType;
     }
 
-    /**
-     * Sets type of Cell.
-     * <br><br>
-     * @param cellType Cell Type see: {@link CellType CellType}
-     */
-    public void setCellType(CellType cellType) {
-        this.cellType = cellType;
+    public void setBorderClass(String borderClass) {
+        this.borderClass = borderClass;
+    }
+
+    public String getBorderClass() {
+        return borderClass;
     }
 
     /**
