@@ -23,6 +23,10 @@ public class Maze implements Serializable {
 
     private static final int NEIGHBOUR_FACTOR = 9;
 
+    public final int DEFAULT_HEIGHT = 15;
+
+    public final int DEFAULT_WIDTH = 15;
+
     /**
      * Height of a Maze.
      */
@@ -94,6 +98,14 @@ public class Maze implements Serializable {
      */
     public boolean isMazeExists() {
         return height > 2 && width > 2;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
     }
 
     public Cell[][] getGrid() {
