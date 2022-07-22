@@ -33,7 +33,7 @@ public class Prim<T extends Comparable<T> & Serializable> {
      * @return Minimum spanning tree of type {@link Graph}.
      */
     public Graph<T> run(T startingPoint) {
-        logger.info("MST calculation started.");
+        logger.debug("MST calculation started.");
 
         Graph<T> mst = new Graph<>();
         mst.addVertex(startingPoint);
@@ -66,8 +66,7 @@ public class Prim<T extends Comparable<T> & Serializable> {
                     .collect(Collectors.toCollection(TreeSet::new));
         }
 
-        logger.info("MST calculated.");
-        logger.debug(mst.toString());
+        logger.debug("MST calculated.");
         return mst;
     }
 }

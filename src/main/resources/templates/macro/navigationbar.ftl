@@ -10,7 +10,7 @@
                     <a class="nav-link active" aria-current="page" href="/generate">Generate</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Solve</a>
+                    <a class="nav-link active" aria-current="page" href="/solve">Solve</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>

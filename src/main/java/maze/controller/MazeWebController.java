@@ -40,8 +40,8 @@ public class MazeWebController {
         model.addAttribute("username", "Mikola");
 
         String direction = "generate";
-        int height = maze.isMazeExists() ? maze.getHeight() : maze.DEFAULT_HEIGHT;
-        int width = maze.isMazeExists() ? maze.getWidth() : maze.DEFAULT_WIDTH;
+        int height = maze.isMazeExists() ? maze.getHeight() : Maze.DEFAULT_HEIGHT;
+        int width = maze.isMazeExists() ? maze.getWidth() : Maze.DEFAULT_WIDTH;
 
         if (maze.isMazeExists()) {
             model.addAttribute("isMazeExists", true);
@@ -61,8 +61,8 @@ public class MazeWebController {
         int height;
         int width;
 
-        height = maze.isMazeExists() ? maze.getHeight() : maze.DEFAULT_HEIGHT;
-        width = maze.isMazeExists() ? maze.getWidth() : maze.DEFAULT_WIDTH;
+        height = maze.isMazeExists() ? maze.getHeight() : Maze.DEFAULT_HEIGHT;
+        width = maze.isMazeExists() ? maze.getWidth() : Maze.DEFAULT_WIDTH;
 
         model.addAttribute("height", height);
         model.addAttribute("width", width);
@@ -77,4 +77,15 @@ public class MazeWebController {
 
         return "redirect:/";
     }
+
+    @GetMapping(value = "/solve")
+    public String solveMaze() {
+
+        if (maze.isMazeExists() ) {
+            maze.solveMaze();
+        }
+
+        return "redirect:/";
+    }
+
 }

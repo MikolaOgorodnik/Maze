@@ -23,9 +23,9 @@ public class Maze implements Serializable {
 
     private static final int NEIGHBOUR_FACTOR = 9;
 
-    public final int DEFAULT_HEIGHT = 15;
+    public static final int DEFAULT_HEIGHT = 15;
 
-    public final int DEFAULT_WIDTH = 15;
+    public static final int DEFAULT_WIDTH = 15;
 
     /**
      * Height of a Maze.
@@ -113,29 +113,21 @@ public class Maze implements Serializable {
     }
 
     /**
-     * Returns starting point of a Maze.
-     *
-     * @return {@code Optional<Cell>} contains (or not) starting point of a Maze.
-     */
-    private Optional<Cell> findStartingPoint() {
-        Cell found = null;
-
-        for (Cell cell : mazeGraph.getVerticesSet()) {
-            if (cell.getCellType().equals(CellType.START)) {
-                found = cell;
-            }
-        }
-
-        return Optional.ofNullable(found);
-    }
-
-    /**
      * Uses Dijkstra's shortest path algorithm to solve the Maze.
      */
-    private void solveMaze() {
-        Dijkstra<Cell> dijkstra = new Dijkstra<>();
+    public void solveMaze() {
+        if (Optional.ofNullable(solution).isEmpty()) {
+            Dijkstra<Cell> dijkstra = new Dijkstra<>();
 
-        solution = dijkstra.getShortestPath(mazeGraph, startingPoint, finishPoint);
+            solution = dijkstra.getShortestPath(mazeGraph, startingPoint, finishPoint);
+
+            solution
+                    .stream()
+                    .filter(x -> x.getCellType() != CellType.EXIT && x.getCellType() != CellType.START)
+                    .forEach(x -> grid[x.getY()][x.getX()].setCellType(CellType.PATH));
+
+            setBorderClassToVertices();
+        }
     }
 
     private void initStartingFinishingCells() {
@@ -236,13 +228,15 @@ public class Maze implements Serializable {
 
                 if (currentX - adjVertex.getX() < 0) {
                     sides[2] = "noright";
-                } else if (currentX - adjVertex.getX()> 0) {
+                } else if (currentX - adjVertex.getX() > 0) {
                     sides[0] = "noleft";
                 }
             }
 
             // Check start & finish cells
-            if (vertex.getCellType() == CellType.START || vertex.getCellType() == CellType.EXIT) {
+            if (vertex.getCellType() == CellType.START
+                    || vertex.getCellType() == CellType.EXIT
+            ) {
                 borderClass.add("edge");
 
                 if (vertex.getY() == 0) {
@@ -253,9 +247,13 @@ public class Maze implements Serializable {
 
                 if (vertex.getX() == 0) {
                     sides[2] = "noleft";
-                }else {
+                } else {
                     sides[0] = "noright";
                 }
+            }
+
+            if (vertex.getCellType() == CellType.PATH) {
+                borderClass.add("solution");
             }
 
             for (String side : sides) {

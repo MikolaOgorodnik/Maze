@@ -1,6 +1,5 @@
 package maze.graph;
 
-import maze.controller.MazeWebController;
 import maze.model.ShortestPathAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

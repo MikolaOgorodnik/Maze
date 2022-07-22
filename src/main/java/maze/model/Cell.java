@@ -99,12 +99,12 @@ public class Cell implements Comparable<Cell>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cell cell = (Cell) o;
-        return x == cell.x && y == cell.y && cellType == cell.cellType;
+        return x == cell.x && y == cell.y /*&& cellType == cell.cellType*/;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y, cellType);
+        return Objects.hash(x, y/*, cellType*/);
     }
 
     @Override
