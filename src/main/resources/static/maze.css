@@ -1,11 +1,24 @@
 
-.cell {
+._cell {
     float: left;
     border-right: 1px solid transparent;
     border-bottom: 1px solid transparent;
     margin-right: 0px;
 / / - 1 px margin-bottom: 0 px;
 / / - 1 px background: url(image/breadcrumb.png) no-repeat - 10 px;
+}
+body{
+    min-width: 1200px;
+}
+.cont {
+    display: flex;
+    flex-direction: column;
+    min-width: 1200px;
+}
+
+.cell {
+    float: left;
+    flex: 1 0 50%;
 }
 
 .edge {
@@ -89,12 +102,16 @@
 }
 
 .cell {
+    min-height: 15px;
     height: 20px;
+    max-height: 40px;
 }
 
 /* this rule must next to last */
 .cell {
+    min-height: 15px;
     width: 20px;
+    max-height: 20px;
 }
 
 /* this rule must be last */

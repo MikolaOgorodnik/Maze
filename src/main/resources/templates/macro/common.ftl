@@ -12,8 +12,10 @@
     </head>
     <body>
     <#include "navigationbar.ftl">
-    <div class="container mt-4">
-        <#nested>
+    <div id="maze" class="container container-fluid mt-2<#--m-0 p-0-->">
+        <div class="cont">
+            <#nested>
+        </div>
     </div>
 
     <!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
