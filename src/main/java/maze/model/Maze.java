@@ -23,10 +23,6 @@ public class Maze implements Serializable {
 
     private static final int NEIGHBOUR_FACTOR = 9;
 
-    public static final int DEFAULT_HEIGHT = 15;
-
-    public static final int DEFAULT_WIDTH = 15;
-
     /**
      * Height of a Maze.
      */
@@ -137,7 +133,7 @@ public class Maze implements Serializable {
         int finishingY = height - 1;
 
         if (rnd.nextBoolean()) {
-            // X axis selected
+            // Axis X selected
             startingX = rnd.nextInt(1, width / 2);
         } else {
             // Y axis
@@ -145,7 +141,7 @@ public class Maze implements Serializable {
         }
 
         if (rnd.nextBoolean()) {
-            // X axis selected
+            // Axis X selected
 
             finishingX = rnd.nextInt(width - 1);
         } else {

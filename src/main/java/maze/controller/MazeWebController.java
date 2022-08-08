@@ -1,6 +1,8 @@
 package maze.controller;
 
 import maze.model.Maze;
+import maze.service.MazeService;
+import maze.service.MazeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +19,15 @@ import java.time.format.DateTimeFormatter;
 public class MazeWebController {
     private final Logger logger = LoggerFactory.getLogger(MazeWebController.class);
 
-    private Maze maze;
+    //private Maze maze;
+
+    private MazeService mazeSvc;
 
     private final DateTimeFormatter formatter;
 
     @Autowired
     public MazeWebController(Environment env) {
-        maze = new Maze();
+        mazeSvc = new MazeServiceImpl();
         String dateFormatter = env.getProperty("localdatetime.format", "dd.MM.yyyy HH:mm:ss");
         formatter = DateTimeFormatter.ofPattern(dateFormatter);
     }
@@ -40,13 +44,11 @@ public class MazeWebController {
         model.addAttribute("username", "Mikola");
 
         String direction = "generate";
-        int height = maze.isMazeExists() ? maze.getHeight() : Maze.DEFAULT_HEIGHT;
-        int width = maze.isMazeExists() ? maze.getWidth() : Maze.DEFAULT_WIDTH;
+        int height = mazeSvc.DEFAULT_HEIGHT;
+        int width = mazeSvc.DEFAULT_WIDTH;
 
-        if (maze.isMazeExists()) {
-            model.addAttribute("isMazeExists", true);
-            model.addAttribute("grid", maze.getGrid());
-            direction = "index";
+        if (mazeSvc.getAll().size() == 0) {
+            direction = "list";
         } else {
             model.addAttribute("height", height);
             model.addAttribute("width", width);
@@ -58,14 +60,8 @@ public class MazeWebController {
     @GetMapping(value = {"/generate"})
     public String showGenerateMaze(Model model) {
 
-        int height;
-        int width;
-
-        height = maze.isMazeExists() ? maze.getHeight() : Maze.DEFAULT_HEIGHT;
-        width = maze.isMazeExists() ? maze.getWidth() : Maze.DEFAULT_WIDTH;
-
-        model.addAttribute("height", height);
-        model.addAttribute("width", width);
+        model.addAttribute("height", mazeSvc.DEFAULT_HEIGHT);
+        model.addAttribute("width", mazeSvc.DEFAULT_WIDTH);
 
         return "generate";
     }
@@ -73,6 +69,7 @@ public class MazeWebController {
     @PostMapping(value = "/generate")
     public String generateMaze(Model model, GenerationResponse generationResponse) {
         model.addAttribute("generationResponse", generationResponse);
+
         maze = new Maze(generationResponse.getHeight(), generationResponse.getWidth());
 
         return "redirect:/";
