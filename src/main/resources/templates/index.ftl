@@ -5,7 +5,7 @@
     Hello, user ${username} <br>
     DateTime: ${datetime} <br>
 </div>-->
-    <#if isMazeExists??>
+    <#if grid??>
         <#list grid as row>
             <div class="mrow">
                 <#list row as col>

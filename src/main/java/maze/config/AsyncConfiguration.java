@@ -22,7 +22,7 @@ public class AsyncConfiguration extends AsyncConfigurerSupport {
         executor.setCorePoolSize(4);
         executor.setMaxPoolSize(10);
         executor.setQueueCapacity(50);
-        executor.setThreadNamePrefix("MazeGenerationThread::");
+        executor.setThreadNamePrefix("MazeThread::");
         executor.setWaitForTasksToCompleteOnShutdown(true);
         executor.initialize();
         return executor;

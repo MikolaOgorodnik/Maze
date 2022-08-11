@@ -1,16 +1,26 @@
 package maze.service;
 
+import maze.model.Cell;
 import maze.model.Maze;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public interface MazeService {
+    int DEFAULT_HEIGHT = 15;
 
-    CompletableFuture<Maze> generate();
+    int DEFAULT_WIDTH = 15;
 
-    void solve();
+    @Async
+    void generate(int height, int width);
 
-    List<Maze> getAll();
+    @Async
+    void solve(int mazeId);
+
+    Cell[][] getGrid(int mazeId);
+
+    List<CompletableFuture<Maze>> getAll();
 
 }
