@@ -7,6 +7,9 @@ plugins {
 group 'org.mikolao'
 version '1.0-SNAPSHOT'
 
+sourceCompatibility = '16'
+targetCompatibility = '16'
+
 repositories {
     mavenCentral()
 }
