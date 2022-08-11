@@ -19,9 +19,9 @@ public class AsyncConfiguration extends AsyncConfigurerSupport {
     @Override
     public Executor getAsyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(4);
-        executor.setMaxPoolSize(10);
-        executor.setQueueCapacity(50);
+        executor.setCorePoolSize(4000);
+        executor.setMaxPoolSize(400_000);
+        executor.setQueueCapacity(1_000_000);
         executor.setThreadNamePrefix("MazeThread::");
         executor.setWaitForTasksToCompleteOnShutdown(true);
         executor.initialize();
